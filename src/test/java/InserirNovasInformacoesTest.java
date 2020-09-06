@@ -1,7 +1,5 @@
 import static org.junit.Assert.assertEquals;
 
-import java.util.concurrent.TimeUnit;
-
 import org.easetech.easytest.annotation.DataLoader;
 import org.easetech.easytest.annotation.Param;
 import org.easetech.easytest.runner.DataDrivenTestRunner;
@@ -14,13 +12,13 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import support.Generator;
 import support.Screenshot;
+import support.Web;
 
 @RunWith(DataDrivenTestRunner.class)
 @DataLoader(filePaths = "InformacoesUsuarioTeste.csv")
@@ -33,13 +31,7 @@ public class InserirNovasInformacoesTest {
 
 	@Before
 	public void setUp() {
-		System.setProperty("webdriver.chrome.driver", "/Users/jonatanjosesoares/drivers/chromedriver");
-		navegador = new ChromeDriver();
-		navegador.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		navegador.get("http://www.juliodelima.com.br/taskit");
-		System.out.println("Chamando o setUp() ");
-		// Clicar no link que possui o texto "Sign in"
-		navegador.findElement(By.linkText("Sign in")).click();
+		navegador = Web.createWebDriver();
 
 		// Indentificando o formulário de login:
 		WebElement formSigninBox = navegador.findElement(By.id("signinbox"));
